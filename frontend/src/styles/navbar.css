@@ -1,0 +1,30 @@
+.navbar-minimal {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 60px;
+  width: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 2000;
+
+  transition: transform 0.3s ease;
+}
+
+/* When sidebar is open, move hamburger to the right */
+.navbar-minimal.shifted {
+  transform: translateX(260px); /* same width as your sidebar */
+}
+
+/* Hamburger button */
+.hamburger {
+  font-size: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+}

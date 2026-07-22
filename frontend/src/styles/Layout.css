@@ -1,0 +1,15 @@
+/* Default main content */
+.main {
+  padding-top: 0 !important;
+  transition: transform 0.3s ease;
+}
+
+/* Apply padding-left ONLY on non-home pages */
+.main.with-padding {
+  padding-left: 70px; /* moves content away from hamburger */
+}
+
+/* When sidebar is open, push content to the right */
+.main.shifted {
+  transform: translateX(260px); /* same width as your sidebar */
+}

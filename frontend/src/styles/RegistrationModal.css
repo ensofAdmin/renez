@@ -1,0 +1,175 @@
+/* Background fade */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+
+  background: rgba(0, 0, 0, 0.45); /* faded background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px 0;
+}
+
+/* Floating form container */
+.modal-container {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  width: 100%;                 /* ⭐ full width on small screens */
+  max-width: 400px;            /* ⭐ limit width on desktop */
+  padding: 20px;
+  border-radius: 12px;
+  margin: 0 20px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s ease;
+  color: #333;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  height: 100vh;
+  overflow-y: auto;            /* ⭐ allows scrolling on small screens */
+}
+
+/* Form styling */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.modal-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #444;
+  width: 100%;        /* ⭐ REQUIRED */
+}
+
+.modal-form input {
+  width: 100%;
+  padding: 12px 20px;       /* full-width with 20px left/right padding */
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  font-size: 15px;
+  box-sizing: border-box;   /* ensures padding doesn't reduce width */
+}
+
+.modal-form input:focus {
+  outline: none;
+  border-color: #888;
+  box-shadow: 0 0 0 2px rgba(180, 180, 180, 0.35);
+}
+
+/* Buttons */
+.modal-submit,
+.modal-close {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: background 0.2s ease;
+}
+
+.modal-submit:hover {
+  background: #333;
+}
+
+.modal-close:hover {
+  background: #ccc;
+}
+
+.floating-group {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Input container with clipping */
+.floating-group input {
+  width: 100%;
+  padding: 18px 20px 10px;     /* extra top padding for label */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f7f7f7;
+  font-size: 15px;
+  box-sizing: border-box;
+  overflow: hidden;            /* ⭐ CLIPS the floating label */
+  position: relative;
+  z-index: 1;
+}
+
+/* Label stays INSIDE the input */
+.floating-group label {
+  position: absolute;
+  left: 20px;
+  top: 18px;
+  font-size: 15px;
+  color: #777;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background: transparent;     /* ⭐ no background needed */
+  padding: 0 4px;
+  z-index: 2;
+}
+
+/* Float state */
+.floating-group input:focus + label,
+.floating-group input:not(:placeholder-shown) + label {
+  top: 4px;                    /* ⭐ stays inside the input */
+  font-size: 12px;
+  color: #444;
+}
+
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-overlay {
+    align-items: flex-start;   /* ⭐ modal starts at top */
+    padding-top: 20px;         /* breathing room */
+  }
+
+  .modal-container {
+    padding: 16px;          /* tighter padding */
+    border-radius: 10px;
+    max-height: 100vh;      /* ⭐ ensures modal fits screen */
+    overflow-y: auto;       /* ⭐ scroll inside modal */
+  }
+
+  .modal-form input {
+    padding: 14px 18px;        /* scale input padding */
+    font-size: 14px;
+  }
+
+  .modal-submit,
+  .modal-close {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  .modal-form input {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .floating-group label {
+    font-size: 13px;
+  }
+}
+
