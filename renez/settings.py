@@ -17,33 +17,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # DEBUG — Switches automatically based on environment
 # # SECURITY WARNING: don't run with debug turned on in production!
 # ---------------------------------------------------------
-DEBUG = os.getenv("DEBUG", "True") == "True"
+DEBUG = os.environ.get("DEBUG") == "True"
 
 # ---------------------------------------------------------
 # SECRET KEY — Always loaded from environment
 # ---------------------------------------------------------
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # ---------------------------------------------------------
 # DATABASE — SQLite locally, PostgreSQL on Render
 # ---------------------------------------------------------
 
 ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
+    "renez-backend.onrender.com",
 ]
 
-# Include future production domain if provided
-DOMAIN = os.getenv("DOMAIN")
+DOMAIN = os.environ.get("DOMAIN")
+API_DOMAIN = os.environ.get("API_DOMAIN")
 
 if DOMAIN:
     ALLOWED_HOSTS.append(DOMAIN)
 
-API_DOMAIN = os.getenv("API_DOMAIN")
 if API_DOMAIN:
     ALLOWED_HOSTS.append(API_DOMAIN)
-
-
 
 # Application definition
 
@@ -112,7 +108,7 @@ DATABASES = {
 
 
 # If DATABASE_URL exists (Render), override with PostgreSQL
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL:
     DATABASES["default"] = dj_database_url.config(
@@ -153,7 +149,8 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -168,15 +165,19 @@ AUTHENTICATION_BACKENDS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-]
-CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173",
+    "https://renez-backend.onrender.com",
 ]
 
-GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
-GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "https://renez-backend.onrender.com",
+]
+
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+GOOGLE_REDIRECT_URI = os.environ.get("GOOGLE_REDIRECT_URI")
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -200,9 +201,9 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
-REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
-REMOVEBG_API_KEY = os.getenv("REMOVEBG_API_KEY")
-PHOTOROOM_API_KEY = os.getenv("PHOTOROOM_API_KEY")
+REPLICATE_API_TOKEN = os.environ.get("REPLICATE_API_TOKEN")
+REMOVEBG_API_KEY = os.environ.get("REMOVEBG_API_KEY")
+PHOTOROOM_API_KEY = os.environ.get("PHOTOROOM_API_KEY")
