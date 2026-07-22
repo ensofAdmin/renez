@@ -1,10 +1,13 @@
-from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
+from django.http import JsonResponse
 
-    path("users/", include("users.urls")),
-    path("salon/", include("salon.urls")),
-    path("kanban/", include("kanban.urls")),
+def root(request):
+    return JsonResponse({"status": "ok", "message": "Renez API is running"})
+
+urlpatterns = [
+    path("", root),
+    path("api/", include("users.urls")),
+    path("api/", include("salon.urls")),
+    path("api/", include("kanban.urls")),
 ]
