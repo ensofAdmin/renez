@@ -13,12 +13,36 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+# ---------------------------------------------------------
+# DEBUG — Switches automatically based on environment
+# # SECURITY WARNING: don't run with debug turned on in production!
+# ---------------------------------------------------------
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# ---------------------------------------------------------
+# SECRET KEY — Always loaded from environment
+# ---------------------------------------------------------
+SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
 
-ALLOWED_HOSTS = ["*"]
+# ---------------------------------------------------------
+# DATABASE — SQLite locally, PostgreSQL on Render
+# ---------------------------------------------------------
+
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
+
+# Include future production domain if provided
+DOMAIN = os.getenv("DOMAIN")
+
+if DOMAIN:
+    ALLOWED_HOSTS.append(DOMAIN)
+
+API_DOMAIN = os.getenv("API_DOMAIN")
+if API_DOMAIN:
+    ALLOWED_HOSTS.append(API_DOMAIN)
+
 
 
 # Application definition
@@ -85,6 +109,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# If DATABASE_URL exists (Render), override with PostgreSQL
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    DATABASES["default"] = dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        ssl_require=True
+    )
 
 
 # Password validation
