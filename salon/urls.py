@@ -22,27 +22,49 @@ from .views import (
 )
 
 urlpatterns = [
-    path("services/", ServiceListCreateView.as_view()),
-    path("services/<int:pk>/", ServiceDetailView.as_view(), name="service-detail"),
+    # -------------------------
+    # SERVICES
+    # -------------------------
+    path("services/", ServiceListCreateView.as_view(), name="salon-services"),
+    path("services/<int:pk>/", ServiceDetailView.as_view(), name="salon-service-detail"),
 
-    path("stylists/", StylistDetailView.as_view()),
-    path("stylists/<int:stylist_id>/", StylistDetailView.as_view()),
+    # -------------------------
+    # STYLISTS
+    # -------------------------
+    path("stylists/", StylistDetailView.as_view(), name="salon-stylists"),
+    path("stylists/<int:stylist_id>/", StylistDetailView.as_view(), name="salon-stylist-detail"),
 
-    path("gallery/upload-edited/", UploadEditedPhoto.as_view()),
+    # -------------------------
+    # GALLERY / PHOTO EDITING
+    # -------------------------
+    path("gallery/upload-edited/", UploadEditedPhoto.as_view(), name="salon-gallery-upload-edited"),
 
-    path("appointments/", AppointmentListCreateView.as_view()),
+    # -------------------------
+    # APPOINTMENTS
+    # -------------------------
+    path("appointments/", AppointmentListCreateView.as_view(), name="salon-appointments"),
+    path("appointments/<int:id>/", AppointmentDetailView.as_view(), name="salon-appointment-detail"),
+    path("appointments/<int:id>/cancel/", AppointmentCancelView.as_view(), name="salon-appointment-cancel"),
 
-    path("appointments/<int:id>/", AppointmentDetailView.as_view()),
-    path("appointments/<int:id>/cancel/", AppointmentCancelView.as_view()),
+    # -------------------------
+    # GUEST CONTACT FORM
+    # -------------------------
+    path("guest-contact/", GuestContactView.as_view(), name="salon-guest-contact"),
 
-    path("guest-contact/", GuestContactView.as_view(), name="guest-contact"),
-    path("timeslots/", TimeSlotView.as_view()),
+    # -------------------------
+    # TIME SLOTS
+    # -------------------------
+    path("timeslots/", TimeSlotView.as_view(), name="salon-timeslots"),
 
-    path("reviews/upsert/", ReviewUpsertView.as_view()),
-    path("reviews/", ReviewListView.as_view()),
+    # -------------------------
+    # REVIEWS
+    # -------------------------
+    path("reviews/", ReviewListView.as_view(), name="salon-reviews"),
+    path("reviews/upsert/", ReviewUpsertView.as_view(), name="salon-review-upsert"),
+    path("reviews/<int:pk>/", ReviewDeleteView.as_view(), name="salon-review-delete"),
 
-    path("reviews/<int:pk>/", ReviewDeleteView.as_view()),
-
-    path("users/all/", UserListView.as_view()),
-
+    # -------------------------
+    # USERS (Salon-specific)
+    # -------------------------
+    path("users/all/", UserListView.as_view(), name="salon-users-all"),
 ]
