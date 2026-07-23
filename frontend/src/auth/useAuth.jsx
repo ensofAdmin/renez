@@ -1,8 +1,5 @@
 // src/auth/useAuth.jsx
 import { create } from "zustand";
-import {useApi} from "../api/useApi.jsx";
-
-const API_URL = import.meta.env.VITE_API_URL;
 
 export const useAuth = create((set) => ({
   user: null,
