@@ -15,7 +15,7 @@ export default function ForgotPasswordModal({ open, onClose }) {
   if (!open) return null;
 
   const requestOTP = async () => {
-    const res = await api.request(`${API_URL}/users/password-reset/request/`, {
+    const res = await api.request(`${API_URL}/auth/password-reset/request/`, {
       method: "POST",
       body: JSON.stringify({ email })
     });
@@ -29,7 +29,7 @@ export default function ForgotPasswordModal({ open, onClose }) {
   };
 
   const verifyOTP = async () => {
-    const res = await api.request(`${API_URL}/users/password-reset/verify/`, {
+    const res = await api.request(`${API_URL}/auth/password-reset/verify/`, {
       method: "POST",
       body: JSON.stringify({ email, code: otp })
     });
@@ -43,7 +43,7 @@ export default function ForgotPasswordModal({ open, onClose }) {
   };
 
   const resetPassword = async () => {
-    const res = await api.request(`${API_URL}/users/password-reset/complete/`, {
+    const res = await api.request(`${API_URL}/auth/password-reset/complete/`, {
       method: "POST",
       body: JSON.stringify({ email, new_password: newPassword })
     });
