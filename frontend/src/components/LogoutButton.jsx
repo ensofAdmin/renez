@@ -11,7 +11,7 @@ function LogoutButton() {
 
   const handleLogout = async () => {
     try {
-      await api.request(`${API_URL}/users/logout/`, {
+      await api.request(`${API_URL}/auth/logout/`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${useAuth.getState().accessToken}`
