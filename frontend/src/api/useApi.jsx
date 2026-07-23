@@ -23,7 +23,7 @@ async function apiRequest(url, options = {}) {
 
   // If expired → refresh
   if (res.status === 401 && refresh) {
-    const refreshRes = await fetch(`${API_URL}/users/token/refresh/`, {
+    const refreshRes = await fetch(`${API_URL}/auth/token/refresh/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh })
