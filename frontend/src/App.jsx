@@ -33,11 +33,12 @@ function MainRoutes() {
 
             <Route path="/home" element={<HomePage />} />
 
-            <Route path="/book" element={<SuperuserRoute><BookAppointment /></SuperuserRoute>} />
-            <Route path="/superuser" element={<SuperuserRoute><SuperuserDashboard /></SuperuserRoute>}/>
+            <Route path="/book" element={<ValidUserRoute><BookAppointment /></ValidUserRoute>} />
             <Route path="/appointments" element={<ValidUserRoute><AppointmentList /></ValidUserRoute>} />
             <Route path="/appointments/:id" element={<ValidUserRoute><AppointmentDetails /></ValidUserRoute>} />
             <Route path="/kanban" element={<ValidUserRoute><KanbanPage /></ValidUserRoute>} />
+
+            <Route path="/superuser" element={<SuperuserRoute><SuperuserDashboard /></SuperuserRoute>}/>
         </Route>
     </Routes>
   )
