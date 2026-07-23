@@ -26,7 +26,7 @@ export default function LoginModal({ open, onClose }) {
         e.preventDefault()
         setError("");
 
-        const res = await api.request(`${API_URL}/users/login/`, {
+        const res = await api.request(`${API_URL}/auth/login/`, {
           method: "POST",
           body: JSON.stringify({ email, password })
         })
